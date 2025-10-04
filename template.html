@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>영단어 암기앱 색상 팜플릿</title>
+  <style>
+    :root{
+      /* 주요 색상 (화이트 베이스, 포인트만 사용) */
+      --white: #FFFFFF;                 /* 배경(기본) */
+      --text-strong: #111827;           /* 본문 텍스트(다크) */
+      --text-muted: #6B7280;            /* 보조 텍스트 */
+      --surface-1: #F8FAFC;             /* 카드 / 섹션 배경 (미묘한 회색) */
+      --border: #E6E9EE;                /* 구분선 */
+
+      /* 메인 포인트(차분하고 눈에 편한 톤) */
+      --primary: #0EA5A4;               /* 티얼 계열 - 핵심 액센트 */
+      --primary-variant: #068C8B;       /* 버튼 호버/강조 */
+      --secondary: #FF7A72;             /* 소프트 코랄 - 경고X, 따뜻한 포인트 */
+      --accent: #F6C85F;                /* 머스타드 계열 - 하이라이트 */
+      --success: #16A34A;               /* 성공/정답 표시 */
+      --error: #EF4444;                 /* 오류 표시 */
+      --neutral-1: #9CA3AF;             /* 라벨/비활성 */
+      --neutral-2: #F1F5F9;             /* very light neutral */
+      --tint: #7C3AED;                 /* 서브 포인트(선택적) */
+    }
+
+    body{
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      background: var(--white);
+      color: var(--text-strong);
+      margin: 24px;
+      -webkit-font-smoothing:antialiased;
+    }
+
+    h1{font-size:20px;margin-bottom:6px}
+    p.lead{margin-top:0;color:var(--text-muted)}
+
+    .layout{display:flex;gap:20px;align-items:flex-start}
+    .preview{flex:1;min-width:320px}
+    .palette{width:420px}
+
+    .card{background:var(--surface-1);border:1px solid var(--border);padding:16px;border-radius:12px;margin-bottom:16px}
+
+    .swatch-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .swatch{border-radius:8px;padding:14px;display:flex;align-items:center;gap:12px;box-shadow:0 1px 0 rgba(16,24,40,0.02)}
+    .swatch-sample{width:56px;height:56px;border-radius:8px;flex-shrink:0;border:1px solid rgba(0,0,0,0.03)}
+    .swatch-meta{font-size:13px}
+    .hex{font-weight:700}
+    .use{color:var(--text-muted);font-size:12px;margin-top:4px}
+
+    /* 예시 UI */
+    .example {background:var(--white);padding:20px;border-radius:12px;border:1px solid var(--border)}
+    .title-row{display:flex;justify-content:space-between;align-items:center}
+    .app-title{font-weight:700}
+    .chip{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--surface-1);border:1px solid var(--border);font-size:13px}
+    .btn{display:inline-block;padding:10px 16px;border-radius:10px;border:0;font-weight:600;cursor:pointer}
+    .btn-primary{background:var(--primary);color:white}
+    .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text-strong)}
+    .fav{padding:8px;border-radius:8px;border:1px solid var(--border)}
+    .word-card{display:flex;align-items:center;justify-content:space-between;padding:12px;border-radius:10px;background:var(--white);border:1px solid var(--border)}
+
+    /* 코드 블록 */
+    pre{background:#0f1724;color:#e6eef8;padding:12px;border-radius:8px;font-size:13px;overflow:auto}
+
+    footer{margin-top:14px;color:var(--text-muted);font-size:13px}
+  </style>
+</head>
+<body>
+  <h1>영단어 암기앱 — 색상 팜플릿</h1>
+  <p class="lead">배경은 화이트 베이스, 포인트만 부드럽게 사용하는 디자인을 기준으로 만든 색상 모음입니다. (안드로이드 네이티브에 적합)</p>
+
+  <div class="layout">
+    <div class="preview">
+      <div class="card example">
+        <div class="title-row">
+          <div>
+            <div class="app-title">WordWorth</div>
+            <div class="chip" style="margin-top:8px">오늘의 단어 12개</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn btn-primary">시작하기</button>
+            <button class="btn btn-ghost">복습</button>
+          </div>
+        </div>
+
+        <div style="margin-top:18px;display:grid;gap:10px">
+          <div class="word-card">
+            <div>
+              <div style="font-weight:700">abate</div>
+              <div style="font-size:12px;color:var(--text-muted)">뜻: 약해지다, 줄다</div>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <div class="fav" title="즐겨찾기">☆</div>
+              <div style="font-size:13px;color:var(--text-muted)">예문 보기</div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px">
+            <button class="btn" style="background:var(--accent);border:0;border-radius:10px">힌트 보기</button>
+            <button class="btn" style="background:var(--secondary);color:white;border-radius:10px">모두 외우기</button>
+          </div>
+
+          <div style="display:flex;gap:8px;align-items:center">
+            <div style="width:110px;height:36px;border-radius:8px;background:var(--primary);display:flex;align-items:center;justify-content:center;color:white;font-weight:700">진행 72%</div>
+            <div style="font-size:13px;color:var(--text-muted)">다음 복습: 2일 후</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <strong>사용 가이드 (요약)</strong>
+        <ul>
+          <li>배경: 항상 <code>--white</code> 또는 카드 안은 <code>--surface-1</code> 사용.</li>
+          <li>액션 버튼(주요): <code>--primary</code> — 탭 버튼, 중요 하이라이트. hover/pressed엔 <code>--primary-variant</code>.</li>
+          <li>보조/경고성 버튼: <code>--secondary</code> — 학습 관련 안내나 강조 목적(긴급 경고X).</li>
+          <li>성공/정답: <code>--success</code>, 오류: <code>--error</code>.</li>
+          <li>작은 강조나 배지: <code>--accent</code> 또는 <code>--tint</code>.</li>
+          <li>텍스트는 다크(본문)와 muted(보조)를 명확히 구분.</li>
+        </ul>
+        <footer>접근성: 버튼의 텍스트 색과 배경색은 WCAG AA(최소 4.5:1) 이상을 권장합니다.</footer>
+      </div>
+    </div>
+
+    <div class="palette">
+      <div class="card">
+        <h3>컬러 팔레트</h3>
+        <div class="swatch-grid" style="margin-top:12px">
+          <div class="swatch">
+            <div class="swatch-sample" style="background:var(--white);border:1px solid var(--border)"></div>
+            <div class="swatch-meta">
+              <div class="hex">#FFFFFF</div>
+              <div class="use">배경 — White</div>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div class="swatch-sample" style="background:var(--surface-1)"></div>
+            <div class="swatch-meta">
+              <div class="hex">#F8FAFC</div>
+              <div class="use">카드 / 섹션 배경</div>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div class="swatch-sample" style="background:var(--primary)"></div>
+            <div class="swatch-meta">
+              <div class="hex">#0EA5A4</div>
+              <div class="use">Primary - 주요 액션</div>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div class="swatch-sample" style="background:var(--primary-variant)"></div>
+            <div class="swatch-meta">
+              <div class="hex">#068C8B</div>
+              <div class="use">Primary - 호버/강조</div>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div class="swatch-sample" style="background:var(--secondary)"></div>
+            <div class="swatch-meta">
+              <div class="hex">#FF7A72</div>
+              <div class="use">Secondary - 보조 포인트</div>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div class="swatch-sample" style="background:var(--accent)"></div>
+            <div class="swatch-meta">
+              <div class="hex">#F6C85F</div>
+              <div class="use">Accent - 소형 하이라이트</div>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div class="swatch-sample" style="background:var(--tint)"></div>
+            <div class="swatch-meta">
+              <div class="hex">#7C3AED</div>
+              <div class="use">Optional tint - 선택적 강조</div>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div class="swatch-sample" style="background:var(--success)"></div>
+            <div class="swatch-meta">
+              <div class="hex">#16A34A</div>
+              <div class="use">Success - 정답/완료</div>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div class="swatch-sample" style="background:var(--error)"></div>
+            <div class="swatch-meta">
+              <div class="hex">#EF4444</div>
+              <div class="use">Error - 오류 표시</div>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div class="swatch-sample" style="background:var(--text-strong)"></div>
+            <div class="swatch-meta">
+              <div class="hex">#111827</div>
+              <div class="use">본문 텍스트</div>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div class="swatch-sample" style="background:var(--text-muted)"></div>
+            <div class="swatch-meta">
+              <div class="hex">#6B7280</div>
+              <div class="use">보조 텍스트</div>
+            </div>
+          </div>
+
+          <div class="swatch">
+            <div class="swatch-sample" style="background:var(--border)"></div>
+            <div class="swatch-meta">
+              <div class="hex">#E6E9EE</div>
+              <div class="use">구분선 / 보더</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>CSS 변수 및 사용 예</h3>
+        <pre>
+:root{
+  --primary: #0EA5A4;
+  --primary-variant: #068C8B;
+  --secondary: #FF7A72;
+  --accent: #F6C85F;
+  --tint: #7C3AED;
+  --success: #16A34A;
+  --error: #EF4444;
+  --white: #FFFFFF;
+  --surface-1: #F8FAFC;
+  --text-strong: #111827;
+  --text-muted: #6B7280;
+}
+
+/* 안드로이드 colors.xml로 변환 예시 */
+/* <color name="md_theme_light_primary">#0EA5A4</color> */
+        </pre>
+
+        <strong>접근성 팁</strong>
+        <ul>
+          <li>주 버튼 텍스트는 흰색(또는 높은 대비 색)으로 유지하고, 버튼 크기는 충분히 크게 — 터치 목표 48dp 이상 권장.</li>
+          <li>보조 색(secondary, accent)은 페이지의 1~2곳에서만 사용해 시각적 피로를 줄이세요.</li>
+          <li>텍스트 대비가 낮은 경우(예: 작은 보조 텍스트), 색을 더 어둡게 조정해 WCAG AA 만족 여부를 확인하세요.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

@@ -89,7 +89,7 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version") // Room의 Kotlin 확장 (선택 사항)
-    // kapt("androidx.room:room-compiler:$room_version") // Room 애노테이션 프로세서 (kapt 구성)
+    kapt("androidx.room:room-compiler:$room_version") // Room 애노테이션 프로세서 (kapt 구성)
     // ksp("androidx.room:room-compiler:$room_version") // Room 애노테이션 프로세서 (kapt 구성)
     implementation("androidx.room:room-paging:$room_version") // 페이징 의존성
 
@@ -126,8 +126,7 @@ dependencies {
     // Saved state module for ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
     // Annotation processor
-    // kapt("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
-
+    kapt("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
 
     // navigation implements
     val nav_version = "2.8.6"
@@ -159,8 +158,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-oss-licenses:$oss_version")
 
     // admobs
-    val admob_version = "22.6.0"
-    implementation("com.google.android.gms:play-services-ads:$admob_version")
+    // val admob_version = "22.6.0"
+    // implementation("com.google.android.gms:play-services-ads:$admob_version")
 
     val app_update_version = "2.1.0"
     implementation("com.google.android.play:app-update:$app_update_version")
