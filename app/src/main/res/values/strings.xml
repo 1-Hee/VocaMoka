@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">VokaMoka</string>
+    <string name="permission_guide">Allow the necessary permissions to use the app.</string>
+    <string name="txt_guide_modify_permission"><![CDATA[Please change the settings in Application Information > Permissions.]]></string>
+    <string name="app_play_store_url">https://play.google.com/store/apps/details?id=kr.co.devicechecker</string>
+    <string name="msg_invalid_vending">fail to move google play store</string>
+
+    <!-- 사용자 권한 -->
+    <array name="arr_user_permission">
+        <item>Storage</item>
+    </array>
+
+    <array name="arr_user_permission_desc">
+        <item>Allow the app to access external storage.</item>
+    </array>
+
+    <array name="icon_user_permissions">
+        <item>@drawable/ic_folder</item>
+    </array>
+
+    <string-array name="arr_setting_option">
+        <item>Language</item>
+        <item>App Version</item>
+        <item>Open Source License</item>
+    </string-array>
+
 </resources>

@@ -2,4 +2,37 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- 기본 색상 -->
+    <color name="surface_base">#F8FAFC</color>
+
+    <!-- 주요 색상 -->
+    <color name="primary">#0EA5A4</color>
+    <color name="primary_variant">#068C8B</color>
+
+    <!-- 보조 색상 -->
+    <color name="secondary">#FF7A72</color>
+    <color name="accent">#F6C85F</color>
+    <color name="tint_optional">#7C3AED</color>
+
+    <!-- 상태 색상 -->
+    <color name="success">#16A34A</color>
+    <color name="error">#EF4444</color>
+
+    <!-- 텍스트 & 경계선 -->
+    <color name="text_strong">#111827</color>
+    <color name="text_muted">#6B7280</color>
+    <color name="border">#E6E9EE</color>
+
+    <color name="mono50">#eeeeee</color>
+    <color name="mono100">#f1f1f1</color>
+    <color name="mono200">#dbdbdb</color>
+    <color name="mono300">#c4c4c4</color>
+    <color name="mono400">#adadad</color>
+    <color name="mono500">#969697</color>
+    <color name="mono600">#7d7e80</color>
+    <color name="mono700">#656769</color>
+    <color name="mono800">#4e5053</color>
+    <color name="mono900">#37393c</color>
+    <color name="none">#00FFFFFF</color>
 </resources>
