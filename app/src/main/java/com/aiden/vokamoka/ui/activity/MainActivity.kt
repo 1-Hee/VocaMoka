@@ -4,6 +4,7 @@ package com.aiden.vokamoka.ui.activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -29,6 +30,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         navController = findNavController(R.id.nav_host_fragment_content_main)
         setSupportActionBar(mBinding.mainAppBar.toolbar)
 
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_arrow_back)
+        supportActionBar?.title = ""
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        mBinding.mainAppBar.toolbar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     // 액션 바 메뉴

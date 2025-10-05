@@ -1,5 +1,8 @@
 package com.aiden.vokamoka.base.ui
 
+import android.os.Handler
+import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -46,6 +49,12 @@ abstract class BaseFragment<D:ViewDataBinding>: DataBindingFragment<D>() {
      */
     protected fun nav():NavController{
         return NavHostFragment.findNavController(this)
+    }
+
+    protected fun showBackButton(flag: Boolean) {
+        Handler(Looper.getMainLooper()).postDelayed({
+            (requireActivity() as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(flag)
+        }, 100)
     }
 }
 
