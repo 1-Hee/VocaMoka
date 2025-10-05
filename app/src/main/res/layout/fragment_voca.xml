@@ -11,15 +11,29 @@
         android:layout_height="match_parent"
         >
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_voca"
-            android:layout_width="wrap_content"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_voca_word"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello Voca"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:minHeight="328dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/cl_voca_status"
+            android:background="@color/secondary"
             />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_voca_status"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/vp_voca_word"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            >
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -4,6 +4,7 @@ import com.aiden.vokamoka.R
 import com.aiden.vokamoka.base.bind.DataBindingConfig
 import com.aiden.vokamoka.base.ui.BaseFragment
 import com.aiden.vokamoka.databinding.FragmentVocaBinding
+import com.aiden.vokamoka.ui.adapter.VocaAdapter
 
 class VocaFragment : BaseFragment<FragmentVocaBinding>() {
 
@@ -17,5 +18,16 @@ class VocaFragment : BaseFragment<FragmentVocaBinding>() {
 
     override fun initView() {
         showBackButton(true)
+
+        val adapter = VocaAdapter(requireActivity())
+        adapter.setFragment(listOf(
+            TestFragment(),
+            TestFragment(),
+            TestFragment(),
+            TestFragment(),
+            TestFragment()
+        ))
+        mBinding.vpVocaWord.adapter = adapter
+
     }
 }
