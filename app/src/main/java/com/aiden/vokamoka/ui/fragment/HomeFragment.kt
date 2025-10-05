@@ -1,5 +1,7 @@
 package com.aiden.vokamoka.ui.fragment
 
+import android.os.Handler
+import android.os.Looper
 import com.aiden.vokamoka.R
 import com.aiden.vokamoka.base.bind.DataBindingConfig
 import com.aiden.vokamoka.base.ui.BaseFragment
@@ -15,7 +17,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        showBackButton(false)
+    }
+
     override fun initView() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            nav().navigate(R.id.vocaFragment)
+        }, 300)
 
     }
 }

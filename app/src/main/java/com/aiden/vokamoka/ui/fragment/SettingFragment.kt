@@ -9,10 +9,14 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import com.aiden.vokamoka.BR
 import com.aiden.vokamoka.BuildConfig
@@ -26,6 +30,8 @@ import com.aiden.vokamoka.databinding.FragmentSettingBinding
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import java.util.Locale
 import androidx.core.net.toUri
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 
 class SettingFragment : BaseFragment<FragmentSettingBinding>(){
 
@@ -83,6 +89,8 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(){
     }
 
     override fun initView() {
+        showBackButton(true)
+
         launcher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { // 액티비티 종료시 결과릴 리턴받기 위한 콜백 함수
@@ -96,8 +104,24 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(){
                  */
             }
         }
-        // hideSettingMenu() // 세팅 메뉴 숨김
+        hideSettingMenu() // 세팅 메뉴 숨김
         checkUserPermission() // 사용자 권한 체크
+    }
+
+    // 세팅 메뉴 숨김 함수
+    private fun hideSettingMenu(){
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(@NonNull menu: Menu, @NonNull menuInflater: MenuInflater) {}
+            override fun onPrepareMenu(@NonNull menu: Menu) {
+                val item = menu.findItem(R.id.action_settings)
+                item?.setVisible(false)
+            }
+
+            override fun onMenuItemSelected(@NonNull menuItem: MenuItem): Boolean {
+                //...
+                return false
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED)
     }
 
     // 권한 변경 페이지로 이동
