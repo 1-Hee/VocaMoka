@@ -4,6 +4,14 @@
     <string name="txt_guide_modify_permission"><![CDATA[Please change the settings in Application Information > Permissions.]]></string>
     <string name="app_play_store_url">https://play.google.com/store/apps/details?id=kr.co.devicechecker</string>
     <string name="msg_invalid_vending">fail to move google play store</string>
+    <string name="tv_word_guide_message">클릭하여 단어 확인 하기</string>
+    <string name="btn_check">Check</string>
+    <string name="tv_beginner">초심자를 위한 Voca Moka 핵심 가이드!</string>
+    <string name="tv_goto_voca">단어 학습 하러 가기</string>
+    <string name="tv_tag_goto_voca">MAIN</string>
+    <string name="tv_goto_stat">나의 통계</string>
+    <string name="tv_goto_rank">Voca 랭킹</string>
+    <string name="tv_goto_regist">단어 편집</string>
 
     <!-- 사용자 권한 -->
     <array name="arr_user_permission">

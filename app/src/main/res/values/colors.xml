@@ -6,33 +6,81 @@
     <!-- 기본 색상 -->
     <color name="surface_base">#F8FAFC</color>
 
-    <!-- 주요 색상 -->
-    <color name="primary">#0EA5A4</color>
-    <color name="primary_variant">#068C8B</color>
-
-    <!-- 보조 색상 -->
-    <color name="secondary">#FF7A72</color>
-    <color name="accent">#F6C85F</color>
-    <color name="tint_optional">#7C3AED</color>
-
     <!-- 상태 색상 -->
-    <color name="success">#16A34A</color>
-    <color name="error">#EF4444</color>
+    <color name="success">@color/green_500</color>
+    <color name="error">@color/red_400</color>
 
-    <!-- 텍스트 & 경계선 -->
-    <color name="text_strong">#111827</color>
-    <color name="text_muted">#6B7280</color>
-    <color name="border">#E6E9EE</color>
+    <!-- Blue Scale -->
+    <color name="blue_50">#FFEFF1FF</color>
+    <color name="blue_100">#FFCCD3FF</color>
+    <color name="blue_200">#FFA8B6FF</color>
+    <color name="blue_300">#FF8598FF</color>
+    <color name="blue_400">#FF5C73F1</color>
+    <color name="blue_500">#FF4056CF</color>
+    <color name="blue_600">#FF293EAD</color>
+    <color name="blue_700">#FF17298B</color>
+    <color name="blue_800">#FF0A1969</color>
+    <color name="blue_900">#FF020C47</color>
 
-    <color name="mono50">#eeeeee</color>
-    <color name="mono100">#f1f1f1</color>
-    <color name="mono200">#dbdbdb</color>
-    <color name="mono300">#c4c4c4</color>
-    <color name="mono400">#adadad</color>
-    <color name="mono500">#969697</color>
-    <color name="mono600">#7d7e80</color>
-    <color name="mono700">#656769</color>
-    <color name="mono800">#4e5053</color>
-    <color name="mono900">#37393c</color>
+    <!-- Green Scale -->
+    <color name="green_50">#FFF8FEF9</color>
+    <color name="green_100">#FFD6F8DE</color>
+    <color name="green_200">#FFB5F3C4</color>
+    <color name="green_300">#FF9ED9AD</color>
+    <color name="green_400">#FF87C095</color>
+    <color name="green_500">#FF72A67F</color>
+    <color name="green_600">#FF5E8C69</color>
+    <color name="green_700">#FF4A7355</color>
+    <color name="green_800">#FF385A40</color>
+    <color name="green_900">#FF27402D</color>
+
+    <!-- Yellow Scale -->
+    <color name="yellow_50">#FFFFF9E6</color>
+    <color name="yellow_100">#FFFFEDB9</color>
+    <color name="yellow_200">#FFFFE28C</color>
+    <color name="yellow_300">#FFFFD75F</color>
+    <color name="yellow_400">#FFFFCC32</color>
+    <color name="yellow_500">#FFF2B705</color>
+    <color name="yellow_600">#FFC99700</color>
+    <color name="yellow_700">#FFA07900</color>
+    <color name="yellow_800">#FF785A00</color>
+    <color name="yellow_900">#FF4F3B00</color>
+
+    <!-- Brown Scale -->
+    <color name="brown_50">#FFFFFBF6</color>
+    <color name="brown_100">#FFFBE6CD</color>
+    <color name="brown_200">#FFF3CEA2</color>
+    <color name="brown_300">#FFD9B68D</color>
+    <color name="brown_400">#FFC09F78</color>
+    <color name="brown_500">#FFA68965</color>
+    <color name="brown_600">#FF8D7253</color>
+    <color name="brown_700">#FF745D41</color>
+    <color name="brown_800">#FF5A4731</color>
+    <color name="brown_900">#FF413322</color>
+
+    <!-- Red Scale -->
+    <color name="red_50">#FFFFECEC</color>
+    <color name="red_100">#FFFFC3C3</color>
+    <color name="red_200">#FFFF9A99</color>
+    <color name="red_300">#FFFF7170</color>
+    <color name="red_400">#FFFB4746</color>
+    <color name="red_500">#FFD93130</color>
+    <color name="red_600">#FFB71F1E</color>
+    <color name="red_700">#FF951110</color>
+    <color name="red_800">#FF730706</color>
+    <color name="red_900">#FF510100</color>
+
+    <!-- Mono Scale -->
+    <color name="mono50">#FFFCFCFC</color>
+    <color name="mono100">#FFE8E8E8</color>
+    <color name="mono200">#FFD3D3D3</color>
+    <color name="mono300">#FFBFBFBF</color>
+    <color name="mono400">#FFABABAB</color>
+    <color name="mono500">#FF969696</color>
+    <color name="mono600">#FF828282</color>
+    <color name="mono700">#FF6D6D6D</color>
+    <color name="mono800">#FF595959</color>
+    <color name="mono900">#FF454444</color>
+
     <color name="none">#00FFFFFF</color>
 </resources>
