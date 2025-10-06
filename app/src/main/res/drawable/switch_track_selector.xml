@@ -26,7 +26,8 @@
                 android:width="64dp"
                 android:height="24dp" />
             <solid
-                android:color="@color/secondary" />
+                android:color="@color/blue_500"
+                />
         </shape>
     </item>
 </selector>

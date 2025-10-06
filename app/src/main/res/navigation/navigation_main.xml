@@ -26,5 +26,16 @@
         android:label="vocaFragment"
         />
 
+    <fragment
+        android:id="@+id/editWordFragment"
+        android:name="com.aiden.vokamoka.ui.fragment.EditWordFragment"
+        android:label="editWordFragment"
+        />
+
+    <fragment
+        android:id="@+id/userStatFragment"
+        android:name="com.aiden.vokamoka.ui.fragment.UserStatFragment"
+        android:label="userStatFragment"
+        />
 
 </navigation>

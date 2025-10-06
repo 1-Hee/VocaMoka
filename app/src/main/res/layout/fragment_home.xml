@@ -6,6 +6,14 @@
     xmlns:bind="http://schemas.android.com/tools"
     >
     <data>
+        <variable
+            name="vm"
+            type="com.aiden.vokamoka.ui.viewmodel.HomeViewModel"
+            />
+        <variable
+            name="click"
+            type="com.aiden.vokamoka.base.listener.ViewClickListener"
+            />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,15 +21,284 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello, Kotlin!"
+        <!-- banner -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_beginner"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/brown_300"
+            >
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_beginner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                style="@style/baseTextStyle"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:text="@string/tv_beginner"
+                android:layout_marginHorizontal="12dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_guide_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:scaleType="fitCenter"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_book_w"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- User Informaition -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/l_user_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/cl_beginner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="16dp"
+            >
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_user_greet1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/baseTextStyle"
+                android:textSize="16sp"
+                android:text="@{vm.userGreetMessage1}"
+                tools:text="[닉네임] 님\n오늘도 단어 암기를 시작해 볼까요?"
+                />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_user_greet2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                style="@style/baseTextStyle"
+                android:text="@{vm.userGreetMessage2}"
+                android:textSize="14sp"
+                android:textColor="@color/mono300"
+                tools:text="오늘 하루 n명의 Moka들이 단어 암기에 함께했어요!"
+                />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!-- 메뉴 아이콘 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_home_menu"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/l_user_info"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_user_play_record"
+            android:layout_marginBottom="16dp"
+            android:padding="16dp"
+            >
+
+            <!-- main menu -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mcv_goto_voca"
+                android:layout_width="match_parent"
+                android:layout_height="168dp"
+                app:cardBackgroundColor="@color/white"
+                android:elevation="4dp"
+                android:shadowColor="@color/mono300"
+                app:cardCornerRadius="12dp"
+                app:strokeColor="@color/mono300"
+                app:strokeWidth="1dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:onClick="@{(v) -> click.onViewClick(v)}"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="12dp"
+                    >
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_goto_voca"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/boldTextStyle"
+                        android:textSize="24sp"
+                        android:text="@string/tv_goto_voca"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/iv_goto_voca"
+                        android:layout_marginStart="16dp"
+                        />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/blue_500"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        >
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_tag_goto_voca"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/lightTextStyle"
+                            android:textSize="14sp"
+                            android:textColor="@color/white"
+                            android:text="@string/tv_tag_goto_voca"
+                            />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_goto_voca"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:src="@drawable/ic_translate_b"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- statistics menu -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mcv_goto_stat"
+                android:layout_width="0dp"
+                android:layout_height="178dp"
+                app:cardBackgroundColor="@color/white"
+                android:elevation="4dp"
+                android:shadowColor="@color/mono300"
+                app:cardCornerRadius="12dp"
+                app:strokeColor="@color/mono300"
+                app:strokeWidth="1dp"
+                app:layout_constraintTop_toBottomOf="@id/mcv_goto_voca"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/mcv_goto_regist"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{(v) -> click.onViewClick(v)}"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="12dp"
+                    >
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_goto_stat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        style="@style/baseTextStyle"
+                        android:text="@string/tv_goto_stat"
+                        android:textSize="20sp"
+                        android:layout_margin="8dp"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_goto_stat"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/ic_statistics"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- rank menu -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mcv_goto_regist"
+                android:layout_width="0dp"
+                android:layout_height="175dp"
+                app:cardBackgroundColor="@color/white"
+                android:elevation="4dp"
+                android:shadowColor="@color/mono300"
+                app:cardCornerRadius="12dp"
+                app:strokeColor="@color/mono300"
+                app:strokeWidth="1dp"
+                app:layout_constraintTop_toBottomOf="@id/mcv_goto_voca"
+                app:layout_constraintStart_toEndOf="@id/mcv_goto_stat"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:onClick="@{(v) -> click.onViewClick(v)}"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="12dp"
+                    >
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_goto_regist"
+                        style="@style/baseTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@string/tv_goto_regist"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.529"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_goto_regist"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/ic_edit_note_b"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- User Play Record -->
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_user_play_record"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/boldTextStyle"
+            android:text="@{vm.userPlayCountMsg}"
+            android:textSize="16sp"
+            android:textColor="@color/blue_500"
+            android:textAlignment="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/v_admob_temp"
+            android:layout_marginBottom="16dp"
+            tools:text="지금까지 [n]회 학습 하셨네요!"
+            />
+
+        <!-- admob banner -->
+        <View
+            android:id="@+id/v_admob_temp"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/mono100"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
