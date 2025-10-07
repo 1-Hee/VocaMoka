@@ -41,9 +41,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ViewClickListener {
     }
 
     override fun onViewClick(view: View) {
+
         when(view.id){
             R.id.mcv_goto_voca -> { // 단어 암기
-                nav().navigate(R.id.vocaFragment)
+                nav().navigate(R.id.vocaLoadFragment)
             }
             R.id.mcv_goto_stat -> { // move 통계
                 nav().navigate(R.id.userStatFragment)

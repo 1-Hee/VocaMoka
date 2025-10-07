@@ -11,9 +11,13 @@ import com.aiden.vokamoka.base.bind.DataBindingConfig
 import com.aiden.vokamoka.base.listener.ViewClickListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.aiden.vokamoka.base.listener.ItemClickListener
 import com.aiden.vokamoka.base.listener.OnPageInfoListener
 import com.aiden.vokamoka.data.dto.Permission
 import com.aiden.vokamoka.data.dto.SettingItem
+import com.aiden.vokamoka.data.vo.DisplayWord
+import com.aiden.vokamoka.data.vo.MenuInfo
+import com.aiden.vokamoka.databinding.ItemMenuVocaLoadBinding
 import com.aiden.vokamoka.databinding.ItemPermissionBinding
 import com.aiden.vokamoka.databinding.ItemSettingBinding
 import com.aiden.vokamoka.ui.adapter.VocaAdapter
@@ -23,26 +27,93 @@ class StaticAdapter {
     companion object {
         private val TAG = this.javaClass.simpleName
 
+
+        // Voca Load Menu Static Adapter
+        /*
+            app:vocaMenuList="@{vm.vocaMenuList}"
+            app:vocaMenuClick="@{itemClick}"
+         */
+        @JvmStatic
+        @BindingAdapter(value = ["vocaMenuList", "vocaMenuClick"], requireAll = false)
+        fun setVocaMenuList(
+            recyclerView: RecyclerView,
+            vocaMenuList:List<MenuInfo>,
+            vocaMenuClick: ItemClickListener<MenuInfo>
+        ) {
+            val llm = LinearLayoutManager(recyclerView.context, RecyclerView.VERTICAL, false);
+            recyclerView.layoutManager = llm
+            val adapter = object
+                : BaseDataBindingAdapter<MenuInfo, ItemMenuVocaLoadBinding>(recyclerView.context) {
+                override fun getDataBindingConfig(): DataBindingConfig {
+                    return DataBindingConfig(R.layout.item_menu_voca_load)
+                }
+
+                override fun onBindItem(
+                    binding: ItemMenuVocaLoadBinding,
+                    position: Int,
+                    item: MenuInfo,
+                    holder: RecyclerView.ViewHolder
+                ) {
+                    binding.setVariable(BR.menuInfo, item)
+                    binding.mcvMenuInfo.setOnClickListener { v ->
+                        vocaMenuClick.onItemClick(v, position, item)
+                    }
+                }
+            }
+
+            adapter.setItemList(vocaMenuList)
+            recyclerView.adapter = adapter
+        }
+
+
+
         // Voca Fragment Static Adapter
         @JvmStatic
-        @BindingAdapter(value = ["vocaFragments", "onPageListener" ], requireAll = false)
+        @BindingAdapter(value = ["vocaInfoList", "onPageListener" ], requireAll = false)
         fun setVocaFragments(
             viewPager2: ViewPager2,
-            fragments:List<Fragment>,
+            vocaInfoList:List<DisplayWord>,
             onPageListener: OnPageInfoListener?
         ) {
-            Log.i(TAG, "Call setVocaFragments()... size ${fragments.size}")
+            Log.i(TAG, "Call setVocaFragments()... size ${vocaInfoList.size}")
+            if(vocaInfoList.isEmpty()) return
             val mActivity: FragmentActivity = viewPager2.context as? FragmentActivity?:return
-            val adapter = VocaAdapter(mActivity)
-            adapter.setFragment(fragments)
+            val adapter = VocaAdapter(
+                mActivity
+            )
+            adapter.setDisplayWord(vocaInfoList)
             viewPager2.adapter = adapter
 
             // 콜백 리스너 등록
-            viewPager2.registerOnPageChangeCallback(
-                object : ViewPager2.OnPageChangeCallback() {
+            var isFirstCallback = true
+            // 첫 번째 실제 아이템으로 이동
+            viewPager2.setCurrentItem(1, false)
+            onPageListener?.onPageChanged(0, vocaInfoList.size)
+            viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageScrollStateChanged(state: Int) {
+                    if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                        val pos = viewPager2.currentItem
+                        val last = adapter.itemCount - 1
+                        when (pos) {
+                            0 -> viewPager2.setCurrentItem(last - 1, false)
+                            last -> viewPager2.setCurrentItem(1, false)
+                        }
+                    }
+                }
+
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    onPageListener?.onPageChanged(position, adapter.itemCount)
+                    if (isFirstCallback) {
+                        isFirstCallback = false
+                        return
+                    }
+
+                    val realPosition = when (position) {
+                        0 -> adapter.itemCount - 3     // 0번째(왼쪽 끝) → 마지막 실제 인덱스
+                        adapter.itemCount - 1 -> 0     // 마지막(오른쪽 끝) → 첫 번째 실제 인덱스
+                        else -> position - 1           // 나머지는 1 빼기
+                    }
+                    onPageListener?.onPageChanged(realPosition, adapter.itemCount - 2)
                 }
             })
         }

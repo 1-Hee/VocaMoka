@@ -12,6 +12,15 @@
     <string name="tv_goto_stat">나의 통계</string>
     <string name="tv_goto_rank">Voca 랭킹</string>
     <string name="tv_goto_regist">단어 편집</string>
+    <string name="ti_edit_camera">Camera</string>
+    <string name="ti_edit_manual">Edit Word</string>
+    <string name="btn_save_word">단어 저장하기</string>
+    <string name="btn_load_data">불러오기</string>
+    <string name="btn_reset_data">초기화</string>
+    <string name="hint_plain_text_editor">아래와 같은 형식으로 입력\n\nApple / 사과 / 명사\nBanana / 바나나 / n. \nComprehensive / 포괄적인, 종합적인, 능력별 구분을 않는 / 형용사</string>
+    <string name="btn_shuffle">단어 섞기</string>
+    <string name="btn_goto_first">맨 앞으로 이동</string>
+    <string name="tv_load_voca_guide">원하시는 메뉴를 선택해주세요.</string>
 
     <!-- 사용자 권한 -->
     <array name="arr_user_permission">
