@@ -14,6 +14,10 @@
             name="click"
             type="com.aiden.vokamoka.base.listener.ViewClickListener"
             />
+        <variable
+            name="onTabSelect"
+            type="com.google.android.material.tabs.TabLayout.OnTabSelectedListener"
+            />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,16 +26,58 @@
         android:layout_height="match_parent"
         >
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tl_select_eidt_menu"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="32sp"
-            android:text="단어 편집 프래그먼트..."
+            android:backgroundTint="@color/white"
+            app:tabIndicatorColor="@color/blue_500"
+            app:tabTextColor="@color/black"
+            app:tabSelectedTextColor="@color/blue_500"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:onTabSelectedListener="@{onTabSelect}"
+            >
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/ti_edit_manual"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ti_edit_manual"
+                />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/ti_edit_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ti_edit_camera"
+                />
+        </com.google.android.material.tabs.TabLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/dv_tab_menu"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:dividerColor="@color/mono100"
+            app:layout_constraintTop_toBottomOf="@id/tl_select_eidt_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="4dp"
+            />
+
+        <!-- edit menu -->
+        <fragment
+            android:id="@+id/nav_host_edit_word"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/dv_tab_menu"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/navigation_edit_word"
             />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

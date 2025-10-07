@@ -11,12 +11,27 @@
             />
         <variable
             name="onPageListener"
-            type="com.aiden.vokamoka.base.listener.OnPageInfoListener" />
+            type="com.aiden.vokamoka.base.listener.OnPageInfoListener"
+            />
+        <variable
+            name="click"
+            type="com.aiden.vokamoka.base.listener.ViewClickListener"
+            />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintGuide_percent="0.4"
+            />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_voca_word"
@@ -25,8 +40,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/dv_word_section"
-            app:vocaFragments="@{vm.vocaFragments}"
+            app:layout_constraintBottom_toBottomOf="@id/gl_horizontal"
+            app:vocaInfoList="@{vm.vocaInfoList}"
             app:onPageListener="@{onPageListener}"
             />
 
@@ -143,11 +158,45 @@
                     />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_shuffle"
+                android:layout_width="wrap_content"
+                android:layout_height="64dp"
+                android:ems="8"
+                android:backgroundTint="@color/yellow_500"
+                style="@style/baseTextStyle"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:text="@string/btn_shuffle"
+                app:layout_constraintTop_toBottomOf="@id/cl_voca_progress"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:onClick="@{(v)->click.onViewClick(v)}"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_goto_first"
+                android:layout_width="wrap_content"
+                android:layout_height="64dp"
+                android:ems="8"
+                android:backgroundTint="@color/blue_500"
+                style="@style/baseTextStyle"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:text="@string/btn_goto_first"
+                app:layout_constraintTop_toBottomOf="@id/btn_shuffle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
+                android:onClick="@{(v)->click.onViewClick(v)}"
+                />
+
             <!-- todo Admob View -->
             <View
                 android:id="@+id/v_temp"
                 android:layout_width="match_parent"
-                android:layout_height="96dp"
+                android:layout_height="64dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

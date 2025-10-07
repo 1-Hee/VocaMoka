@@ -38,4 +38,9 @@
         android:label="userStatFragment"
         />
 
+    <fragment
+        android:id="@+id/vocaLoadFragment"
+        android:name="com.aiden.vokamoka.ui.fragment.VocaLoadFragment"
+        android:label="vocaLoadFragment"
+        />
 </navigation>
