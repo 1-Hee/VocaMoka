@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -29,17 +30,19 @@ class WordFragment(
     ViewClickListener, ItemClickListener<DisplayWord> {
 
     private var isFrontVisible = true // 카드 애니메이션용
-    private var _position:Int = -1
-    val position:Int get() = _position
-
+    private val index by lazy { arguments?.getInt(ARG_INDEX) ?: -1 } // 프래그먼트의 순서
     private val TAG = this.javaClass.simpleName
-    // private lateinit var wordViewModel: WordViewModel
     private val wordViewModel: WordViewModel by viewModels()
 
-
-    fun setPosition(position: Int){
-        if(position < 0) throw IllegalArgumentException("position has to bigger than zero.")
-        this._position = position
+    companion object {
+        private const val ARG_INDEX = "index"
+        fun newInstance(index: Int, displayWord: DisplayWord? = null) : WordFragment {
+            val fragment = WordFragment(displayWord)
+            fragment.arguments = Bundle().apply {
+                putInt(ARG_INDEX, index)
+            }
+            return fragment
+        }
     }
 
     override fun getDataBindingConfig(): DataBindingConfig {
@@ -58,7 +61,7 @@ class WordFragment(
     override fun initView() {
         mBinding.clVocaWord.setOnClickListener { v ->
             displayWord?:return@setOnClickListener
-            onItemClick(v, position, displayWord)
+            onItemClick(v, index, displayWord)
             onViewClick(v)
         }
     }

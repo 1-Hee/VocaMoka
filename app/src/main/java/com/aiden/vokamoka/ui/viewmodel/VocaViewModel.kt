@@ -4,6 +4,7 @@ import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import com.aiden.vokamoka.data.vo.DisplayWord
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 
@@ -13,7 +14,7 @@ class VocaViewModel @Inject constructor() : ViewModel() {
     // * ---------------------------
     // *   ViewModel Variables
     // * ---------------------------
-    private val _vocaFragments: ObservableArrayList<Fragment> = ObservableArrayList<Fragment>()
+    private val _vocaInfoList: ObservableArrayList<DisplayWord> = ObservableArrayList()
     private val _pageCurrent: ObservableField<Int> = ObservableField(0)
     private val _pageTotal: ObservableField<Int> = ObservableField(0)
     private val _pageTimeValue: ObservableField<Int> = ObservableField(0)
@@ -21,7 +22,7 @@ class VocaViewModel @Inject constructor() : ViewModel() {
     // * ---------------------------
     // *    ViewModel Getter
     // * ---------------------------
-    val vocaFragments: ObservableArrayList<Fragment> get() = _vocaFragments
+    val vocaInfoList: ObservableArrayList<DisplayWord> get() = _vocaInfoList
     val pageCurrent: ObservableField<Int> get() =_pageCurrent
     val pageTotal: ObservableField<Int> get() = _pageTotal
     val pageTimeValue: ObservableField<Int> get() = _pageTimeValue
@@ -30,17 +31,17 @@ class VocaViewModel @Inject constructor() : ViewModel() {
     // *   ViewModel Setter
     // * ---------------------------
 
-    fun setVocaFragments(fragments : List<Fragment>) {
-        this._vocaFragments.clear()
-        this._vocaFragments.addAll(fragments)
-    }
-
-    fun addVocaFragments(fragments : Fragment) {
-        this._vocaFragments.add(fragments)
-    }
-
     fun setPageCurrent(current : Int) {
         this._pageCurrent.set(current)
+    }
+
+    fun addVocaInfoList(displayWord: DisplayWord){
+        this._vocaInfoList.add(displayWord)
+    }
+
+    fun setVocaInfoList(displayWords : List<DisplayWord>){
+        this._vocaInfoList.clear()
+        this._vocaInfoList.addAll(displayWords)
     }
 
     fun setPageTotal(total : Int) {
