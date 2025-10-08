@@ -1,7 +1,6 @@
 package com.aiden.vokamoka.ui.viewmodel
 
 import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.aiden.vokamoka.data.vo.MenuInfo
 import dagger.hilt.android.lifecycle.HiltViewModel

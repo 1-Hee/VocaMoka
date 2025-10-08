@@ -2,33 +2,49 @@ package com.aiden.vokamoka.ui.fragment
 
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import com.aiden.vokamoka.BR
 import com.aiden.vokamoka.R
 import com.aiden.vokamoka.base.bind.DataBindingConfig
+import com.aiden.vokamoka.base.listener.ItemClickListener
 import com.aiden.vokamoka.base.listener.ViewClickListener
 import com.aiden.vokamoka.base.ui.BaseFragment
+import com.aiden.vokamoka.data.vo.MenuInfo
 import com.aiden.vokamoka.databinding.FragmentEditWordBinding
 import com.aiden.vokamoka.ui.viewmodel.EditWordViewModel
-import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EditWordFragment : BaseFragment<FragmentEditWordBinding>(),
-    ViewClickListener, TabLayout.OnTabSelectedListener {
+    ViewClickListener, ItemClickListener<MenuInfo> {
 
-    private lateinit var navController: NavController
+    private val TAG = this.javaClass.simpleName
     private val editWordViewModel: EditWordViewModel by viewModels()
 
     override fun getDataBindingConfig(): DataBindingConfig {
         return DataBindingConfig(R.layout.fragment_edit_word,
             BR.vm, editWordViewModel)
             .addBindingParam(BR.click, this)
-            .addBindingParam(BR.onTabSelect, this)
+            .addBindingParam(BR.itemClick, this)
     }
 
-    override fun initViewModel() { }
+    override fun initViewModel() {
+        val menuList:List<Pair<String, Int>> = listOf(
+            Pair("단어 입력하기(Basic)", R.id.plainTextFragment),
+            Pair("단어 입력하기(Camera)", R.id.cameraEditFragment),
+            Pair("암기 일정 편집", R.id.wordScheduleFragment),
+            Pair("단어 목록 편집", R.id.vocaEditFragment),
+        )
+
+        val menuInfoList: MutableList<MenuInfo> = mutableListOf()
+        menuList.forEach { info ->
+            val mInfo = MenuInfo(
+                info.first,
+                info.second
+            )
+            menuInfoList.add(mInfo)
+        }
+        editWordViewModel.setVocaMenuList(menuInfoList)
+    }
 
     override fun onStart() {
         super.onStart()
@@ -36,7 +52,7 @@ class EditWordFragment : BaseFragment<FragmentEditWordBinding>(),
     }
 
     override fun initView() {
-        navController = requireActivity().findNavController(R.id.nav_host_edit_word)
+
     }
 
     override fun onViewClick(view: View) {
@@ -48,35 +64,28 @@ class EditWordFragment : BaseFragment<FragmentEditWordBinding>(),
         }
     }
 
-    override fun onTabSelected(tab: TabLayout.Tab?) {
-        navController.popBackStack()
-        when(tab?.position){
-            0 -> { // Plain Text (= 메모장)
-                navController.navigate(R.id.plainTextFragment)
+
+    override fun onItemClick(
+        view: View,
+        position: Int,
+        item: MenuInfo
+    ) {
+        when(item.menuId) {
+            R.id.plainTextFragment -> { // plain editor
+                nav().navigate(item.menuId)
             }
-            1 -> { // Camera Edit
-                navController.navigate(R.id.cameraEditFragment)
+            R.id.cameraEditFragment -> {
+                nav().navigate(item.menuId)
+            }
+            R.id.wordScheduleFragment -> {
+                nav().navigate(item.menuId)
+            }
+            R.id.vocaEditFragment -> {
+                nav().navigate(item.menuId)
             }
             else -> {
 
             }
         }
     }
-
-    override fun onTabUnselected(tab: TabLayout.Tab?) { }
-    override fun onTabReselected(tab: TabLayout.Tab?) { }
-
-    /*
-val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
-
-tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-    override fun onTabSelected(tab: TabLayout.Tab) {
-        Toast.makeText(this@MainActivity, "${tab.text} 선택됨", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onTabUnselected(tab: TabLayout.Tab) {}
-    override fun onTabReselected(tab: TabLayout.Tab) {}
-})
-
-     */
 }
