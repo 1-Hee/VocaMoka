@@ -43,4 +43,29 @@
         android:name="com.aiden.vokamoka.ui.fragment.VocaLoadFragment"
         android:label="vocaLoadFragment"
         />
+
+    <fragment
+        android:id="@+id/plainTextFragment"
+        android:name="com.aiden.vokamoka.ui.fragment.PlainTextFragment"
+        android:label="plainTextFragment"
+        />
+
+    <fragment
+        android:id="@+id/cameraEditFragment"
+        android:name="com.aiden.vokamoka.ui.fragment.CameraEditFragment"
+        android:label="cameraEditFragment"
+        />
+
+    <fragment
+        android:id="@+id/wordScheduleFragment"
+        android:name="com.aiden.vokamoka.ui.fragment.WordScheduleFragment"
+        android:label="wordScheduleFragmen"
+        />
+
+    <fragment
+        android:id="@+id/vocaEditFragment"
+        android:name="com.aiden.vokamoka.ui.fragment.VocaEditFragment"
+        android:label="vocaEditFragment"
+        />
+
 </navigation>

@@ -15,24 +15,66 @@ import com.aiden.vokamoka.base.listener.ItemClickListener
 import com.aiden.vokamoka.base.listener.OnPageInfoListener
 import com.aiden.vokamoka.data.dto.Permission
 import com.aiden.vokamoka.data.dto.SettingItem
+import com.aiden.vokamoka.data.dto.StatInfo
 import com.aiden.vokamoka.data.vo.DisplayWord
 import com.aiden.vokamoka.data.vo.MenuInfo
 import com.aiden.vokamoka.databinding.ItemMenuVocaLoadBinding
 import com.aiden.vokamoka.databinding.ItemPermissionBinding
 import com.aiden.vokamoka.databinding.ItemSettingBinding
+import com.aiden.vokamoka.databinding.ItemStatMenuBinding
 import com.aiden.vokamoka.ui.adapter.VocaAdapter
+import com.google.android.flexbox.AlignItems
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexWrap
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 
 class StaticAdapter {
 
     companion object {
         private val TAG = this.javaClass.simpleName
 
+        // Statistics Menu Static Adapter
+        @JvmStatic
+        @BindingAdapter(value = ["statMenuList", "statInfoClick"], requireAll = false)
+        fun setStatMenuList(
+            recyclerView: RecyclerView,
+            statMenuList:List<StatInfo>,
+            statInfoClick: ItemClickListener<StatInfo>?
+        ) {
+            val flexboxLayoutManager = FlexboxLayoutManager(recyclerView.context).apply {
+                flexDirection = FlexDirection.ROW          // 가로 방향으로 나열
+                flexWrap = FlexWrap.WRAP                   // 줄바꿈 허용 → 2열 이상 가능
+                justifyContent = JustifyContent.SPACE_EVENLY // 왼쪽 정렬
+                alignItems = AlignItems.CENTER
+            }
+            recyclerView.layoutManager = flexboxLayoutManager
+
+            val adapter = object
+                : BaseDataBindingAdapter<StatInfo, ItemStatMenuBinding>(recyclerView.context) {
+                override fun getDataBindingConfig(): DataBindingConfig {
+                    return DataBindingConfig(R.layout.item_stat_menu)
+                }
+
+                override fun onBindItem(
+                    binding: ItemStatMenuBinding,
+                    position: Int,
+                    item: StatInfo,
+                    holder: RecyclerView.ViewHolder
+                ) {
+                    binding.setVariable(BR.statInfo, item)
+                    binding.mcvStatInfo.setOnClickListener { v ->
+                        statInfoClick?.onItemClick(v, position, item)
+                    }
+                }
+            }
+
+            adapter.setItemList(statMenuList)
+            recyclerView.adapter = adapter
+
+        }
 
         // Voca Load Menu Static Adapter
-        /*
-            app:vocaMenuList="@{vm.vocaMenuList}"
-            app:vocaMenuClick="@{itemClick}"
-         */
         @JvmStatic
         @BindingAdapter(value = ["vocaMenuList", "vocaMenuClick"], requireAll = false)
         fun setVocaMenuList(
