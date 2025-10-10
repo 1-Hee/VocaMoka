@@ -21,6 +21,9 @@
     <string name="btn_shuffle">단어 섞기</string>
     <string name="btn_goto_first">맨 앞으로 이동</string>
     <string name="tv_load_voca_guide">원하시는 메뉴를 선택해주세요.</string>
+    <string name="tv_camera_edit_guide">카메라 촬영을 통해 데이터를 불러옵니다.</string>
+    <string name="btn_load_image_close">취소</string>
+    <string name="btn_load_image_save">저장하기</string>
 
     <!-- 사용자 권한 -->
     <array name="arr_user_permission">
@@ -40,5 +43,23 @@
         <item>App Version</item>
         <item>Open Source License</item>
     </string-array>
+
+
+    <!-- Voca Load Fragment Menu -->
+    <string-array name="arr_menu_voca_load">
+        <item>빠른 시작하기</item>
+        <item>파일 불러오기</item>
+        <item>데이터베이스 불러오기</item>
+    </string-array>
+
+    <string-array name="arr_menu_edit_word">
+        <item>단어 입력하기(Editor)</item>
+        <item>단어 입력하기(Camera)</item>
+        <item>파일 불러오기</item>
+        <item>암기 일정 편집</item>
+        <item>단어 목록 편집"</item>
+    </string-array>
+
+
 
 </resources>

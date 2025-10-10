@@ -1,5 +1,6 @@
 package com.aiden.vokamoka.ui.fragment
 
+import android.content.Context
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.aiden.vokamoka.BR
@@ -28,18 +29,14 @@ class EditWordFragment : BaseFragment<FragmentEditWordBinding>(),
     }
 
     override fun initViewModel() {
-        val menuList:List<Pair<String, Int>> = listOf(
-            Pair("단어 입력하기(Basic)", R.id.plainTextFragment),
-            Pair("단어 입력하기(Camera)", R.id.cameraEditFragment),
-            Pair("암기 일정 편집", R.id.wordScheduleFragment),
-            Pair("단어 목록 편집", R.id.vocaEditFragment),
-        )
-
+        val context: Context = requireContext()
+        val menuArray:Array<String> = context.resources
+            .getStringArray(R.array.arr_menu_edit_word); //  Edit Word Menu
         val menuInfoList: MutableList<MenuInfo> = mutableListOf()
-        menuList.forEach { info ->
+
+        menuArray.forEachIndexed { i, name ->
             val mInfo = MenuInfo(
-                info.first,
-                info.second
+                name, i
             )
             menuInfoList.add(mInfo)
         }
@@ -71,17 +68,21 @@ class EditWordFragment : BaseFragment<FragmentEditWordBinding>(),
         item: MenuInfo
     ) {
         when(item.menuId) {
-            R.id.plainTextFragment -> { // plain editor
-                nav().navigate(item.menuId)
+            0 -> { // 단어 입력하기(Editor)
+                nav().navigate(R.id.plainTextFragment)
             }
-            R.id.cameraEditFragment -> {
-                nav().navigate(item.menuId)
+            1 -> { // 단어 입력하기(Camera)
+                nav().navigate(R.id.cameraEditFragment)
             }
-            R.id.wordScheduleFragment -> {
-                nav().navigate(item.menuId)
+            2 -> { // 파일 불러오기
+
             }
-            R.id.vocaEditFragment -> {
-                nav().navigate(item.menuId)
+            3 -> { // 암기 일정 편집
+                nav().navigate(R.id.wordScheduleFragment)
+
+            }
+            4 -> { // 단어 목록 편집
+                nav().navigate(R.id.vocaEditFragment)
             }
             else -> {
 

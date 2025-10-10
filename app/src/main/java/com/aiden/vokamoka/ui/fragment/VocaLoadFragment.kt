@@ -1,5 +1,6 @@
 package com.aiden.vokamoka.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -31,15 +32,15 @@ class VocaLoadFragment : BaseFragment<FragmentVocaLoadBinding>(),
     }
 
     override fun initViewModel() {
-        val menuList = listOf<String>(
-            "빠른 시작하기",
-            "파일 불러오기",
-            "데이터베이스 불러오기"
-        )
+        // init Voca Load Menu
+        val context: Context = requireContext()
+        val menuArray:Array<String> = context.resources
+            .getStringArray(R.array.arr_menu_voca_load); //  Voca Load Menu
         val menuInfoList: MutableList<MenuInfo> = mutableListOf()
-        menuList.forEach { name ->
+
+        menuArray.forEachIndexed { i, name ->
             val mInfo = MenuInfo(
-                name, -1
+                name, i
             )
             menuInfoList.add(mInfo)
         }
@@ -62,6 +63,21 @@ class VocaLoadFragment : BaseFragment<FragmentVocaLoadBinding>(),
         Log.d(TAG, "[$position] ITEM INFO $item")
         val bundle = Bundle()
         bundle.putParcelable("menuInfo", item)
-        nav().navigate(R.id.vocaFragment, bundle)
+
+        when(item.menuId) {
+            0 -> { // 빠른 시작하기
+                nav().navigate(R.id.vocaFragment, bundle)
+            }
+            1 -> { // 파일 불러오기
+
+            }
+            2 -> { // 데이터베이스 불러오기
+
+            }
+            else -> {
+
+            }
+        }
+
      }
 }
