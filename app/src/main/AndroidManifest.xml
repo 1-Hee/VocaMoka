@@ -4,6 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     >
 
+    <!-- 인터넷 사용 권한 설정 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 사진 & 동영상 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+    <!-- 휴대폰 알림 -->
+    <!--
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    -->
+    <!-- 휴대폰 위치 정보 읽기를 위한 권한 설정 -->
+    <!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />-->
+    <!--    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
+    <!-- 휴대폰 카메라 -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+
 
     <application
         android:name=".base.ui.AppApplication"
@@ -15,7 +35,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VokaMoka"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:enableOnBackInvokedCallback="true"
+        >
+
+        <!-- 카메라 사용을 위한 provider -->
+        <!--
+            provider 태그설정에서 exported 속성은 true 하면 안됨,
+            앱 수준에서 외부로 내보낼 권한이 없기 때문
+         -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.aiden.vokamoka.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <activity
             android:name=".ui.activity.MainActivity"
             android:exported="true">
