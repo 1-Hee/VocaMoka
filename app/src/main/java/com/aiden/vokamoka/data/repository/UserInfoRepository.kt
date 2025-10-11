@@ -18,6 +18,11 @@ class UserInfoRepository @Inject constructor(
         return userInfoDao.selectUserInfo(entityId)
     }
 
+    suspend fun readLastEntityId(): Long {
+        return userInfoDao.selectLastUserId()
+    }
+
+
     override suspend fun readEntityList(): List<UserInfo> {
         return userInfoDao.selectUserInfoList()
     }

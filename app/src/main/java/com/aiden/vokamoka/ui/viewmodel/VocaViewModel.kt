@@ -1,15 +1,32 @@
 package com.aiden.vokamoka.ui.viewmodel
 
+import android.util.Log
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.aiden.vokamoka.data.model.Expression
+import com.aiden.vokamoka.data.model.WordPool
+import com.aiden.vokamoka.data.repository.ExpressionRepository
+import com.aiden.vokamoka.data.repository.WordPoolRepository
 import com.aiden.vokamoka.data.vo.DisplayWord
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlin.collections.forEach
 
 @HiltViewModel
-class VocaViewModel @Inject constructor() : ViewModel() {
+class VocaViewModel @Inject constructor(
+    private val expRepo: ExpressionRepository,
+    private val poolRepo: WordPoolRepository,
+) : ViewModel() {
+
+    private val TAG = this.javaClass.simpleName
 
     // * ---------------------------
     // *   ViewModel Variables
@@ -18,6 +35,7 @@ class VocaViewModel @Inject constructor() : ViewModel() {
     private val _pageCurrent: ObservableField<Int> = ObservableField(0)
     private val _pageTotal: ObservableField<Int> = ObservableField(0)
     private val _pageTimeValue: ObservableField<Int> = ObservableField(0)
+    private val _isVocaUpdated: MutableLiveData<Boolean> = MutableLiveData()
 
     // * ---------------------------
     // *    ViewModel Getter
@@ -26,6 +44,7 @@ class VocaViewModel @Inject constructor() : ViewModel() {
     val pageCurrent: ObservableField<Int> get() =_pageCurrent
     val pageTotal: ObservableField<Int> get() = _pageTotal
     val pageTimeValue: ObservableField<Int> get() = _pageTimeValue
+    val isVocaUpdated: LiveData<Boolean> get() = _isVocaUpdated
 
     // * ---------------------------
     // *   ViewModel Setter
@@ -50,6 +69,35 @@ class VocaViewModel @Inject constructor() : ViewModel() {
 
     fun setPageTimeValue(timeValue : Int) {
         this._pageTimeValue.set(timeValue)
+    }
+
+    fun setIsVocaUpdated(flag : Boolean){
+        this._isVocaUpdated.postValue(flag)
+    }
+
+    //
+    fun loadVocaList(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val mDisplayWords: MutableList<DisplayWord> = mutableListOf()
+            val mPoolList:List<WordPool> = poolRepo.readEntityList()
+            mPoolList.forEach { pool ->
+                Log.d(TAG, "POOL $pool")
+                val expFrom: Expression = expRepo.readEntity(pool.originExpId)
+                val expTo: Expression = expRepo.readEntity(pool.targetExpId)
+
+                val mWord = DisplayWord(
+                    expFrom.wordText,
+                    expTo.wordText,
+                    "None"
+                )
+                mDisplayWords.add(mWord)
+            }
+
+            withContext(Dispatchers.Main) {
+                setVocaInfoList(mDisplayWords)
+                setIsVocaUpdated(true)
+            }
+        }
     }
 
 }

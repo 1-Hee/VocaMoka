@@ -22,6 +22,11 @@ class WordCategoryRepository @Inject constructor(
         return wordCategoryDao.selectWordCategoryList()
     }
 
+    suspend fun queryCategoryId(idValue: String): Long {
+        return wordCategoryDao.searchCategoryId(idValue)
+    }
+
+
     override suspend fun modifyEntity(entity: WordCategory) {
         wordCategoryDao.updateWordCategory(entity)
     }
