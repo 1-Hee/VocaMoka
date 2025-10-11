@@ -26,7 +26,6 @@ class CameraEditViewModel @Inject constructor() : ViewModel() {
     // * ---------------------------------
     // *    Setter
     // * ---------------------------------
-
     fun setIsImgReady(flag : Boolean) {
         this._isImgReady.set(flag)
     }
