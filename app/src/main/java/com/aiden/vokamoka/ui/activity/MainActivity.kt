@@ -7,6 +7,7 @@ import android.view.MenuItem
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import com.aiden.vokamoka.BuildConfig
 import com.aiden.vokamoka.R
 import com.aiden.vokamoka.base.bind.DataBindingConfig
 import com.aiden.vokamoka.base.ui.BaseActivity
