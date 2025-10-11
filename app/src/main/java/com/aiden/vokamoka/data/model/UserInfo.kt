@@ -11,4 +11,6 @@ data class UserInfo(
     var userId:Long = 0, // 사용자 식별 정보(ID)
     @ColumnInfo(name = "user_indicator")
     var userIndicator: String = "", // 사용자 식별 정보, 단말기 시리얼 번호 등 사용자 특정용 데이터
+    @ColumnInfo(name = "user_nickname")
+    var userNickname: String = "", // 사용자 닉네임
 )
