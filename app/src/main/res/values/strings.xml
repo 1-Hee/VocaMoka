@@ -24,6 +24,9 @@
     <string name="tv_camera_edit_guide">카메라 촬영을 통해 데이터를 불러옵니다.</string>
     <string name="btn_load_image_close">취소</string>
     <string name="btn_load_image_save">저장하기</string>
+    <string name="tv_welcome">환영합니다!\n사용하실 닉네임을 입력해주세요.</string>
+    <string name="hint_user_nickname">eg. VokaMoka</string>
+    <string name="btn_voka_start">시작하기</string>
 
     <!-- 사용자 권한 -->
     <array name="arr_user_permission">
