@@ -36,7 +36,6 @@ class VocaFragment : BaseFragment<FragmentVocaBinding>(),
     override fun getDataBindingConfig(): DataBindingConfig {
         return DataBindingConfig(R.layout.fragment_voca,
             BR.vm, vocaViewModel)
-            .addBindingParam(BR.vocaInfoList, listOf<DisplayWord>())
             .addBindingParam(BR.onPageListener, this)
             .addBindingParam(BR.click, this)
     }
@@ -103,29 +102,16 @@ class VocaFragment : BaseFragment<FragmentVocaBinding>(),
             Log.d(TAG, "mMenuInfo : $mMenuInfo")
         }
 
-//        val temp: MutableList<DisplayWord> = mutableListOf()
-//        for(i in 0 until 10){
-//            val tempWord = DisplayWord(
-//                "Hello, World ${(i+1)}",
-//                "안녕, 코틀린!",
-//                "beginner"
-//            )
-//            temp.add(tempWord)
-//        }
-//        vocaViewModel.setVocaInfoList(temp)
-
         mBinding.setVariable(BR.vocaAdapter, VocaAdapter(requireActivity()))
         mBinding.notifyChange()
 
+        // 저장된 단어 준비
         vocaViewModel.loadVocaList()
         vocaViewModel.setPageTimeValue((AUTO_SCROLL_INTERVAL))
-        // mBinding.notifyChange()
-
         vocaViewModel.isVocaUpdated.observe(this) { it ->
             if(it) {
                 Log.d(TAG, "VOCA LIST ${vocaViewModel.vocaInfoList}")
                 mBinding.setVariable(BR.vocaAdapter, VocaAdapter(requireActivity()))
-                mBinding.setVariable(BR.vocaInfoList, vocaViewModel.vocaInfoList)
                 mBinding.notifyChange()
                 vocaViewModel.setIsVocaUpdated(false)
             }
