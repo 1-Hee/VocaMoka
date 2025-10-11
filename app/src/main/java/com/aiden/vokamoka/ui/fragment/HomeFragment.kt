@@ -1,5 +1,7 @@
 package com.aiden.vokamoka.ui.fragment
 
+import android.content.Context
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import com.aiden.vokamoka.BR
@@ -14,7 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), ViewClickListener {
 
-    // private lateinit var homeViewModel: HomeViewModel
     private val homeViewModel: HomeViewModel by viewModels()
 
     override fun getDataBindingConfig(): DataBindingConfig {
@@ -31,11 +32,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ViewClickListener {
     }
 
     override fun initView() {
+        val context: Context = requireContext()
+        homeViewModel.loadUserInfo(context)
+
+        homeViewModel.userInfoFlag.observe(this) { flag ->
+            if(flag){
+                nav().navigate(R.id.welcomeFragment)
+            }
+        }
+
         // todo
-        val msg1 = "[닉네임] 님\n오늘도 단어 암기를 시작해 볼까요?"
-        val msg2 = "오늘 하루 n명의 Moka들이 단어 암기에 함께했어요!"
-        val countMsg = "지금까지 [n]회 학습 하셨네요!"
-        this.homeViewModel.setUserGreetMessage1(msg1)
+        val test2 = 1
+        val test3 = 0
+        val msg2 = getString(R.string.msg_greet2, test2)
+        val countMsg = getString(R.string.msg_greet3, test3)
         this.homeViewModel.setUserGreetMessage2(msg2)
         this.homeViewModel.setUserPlayCountMsg(countMsg)
     }
