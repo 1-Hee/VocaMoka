@@ -94,7 +94,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_save_word"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -103,6 +103,7 @@
             android:textSize="16sp"
             android:textColor="@color/white"
             android:text="@string/btn_save_word"
+            android:onClick="@{(v) -> click.onViewClick(v)}"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

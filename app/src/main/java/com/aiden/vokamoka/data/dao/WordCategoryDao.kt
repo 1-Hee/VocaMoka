@@ -29,6 +29,16 @@ interface WordCategoryDao {
     @Query("SELECT * FROM word_category WHERE category_id = :entityId")
     fun selectWordCategory(entityId: Long): WordCategory
 
+    @Query("""
+    SELECT COALESCE((
+        SELECT category_id
+        FROM word_category
+        WHERE name LIKE '%' || :idValue || '%'
+        LIMIT 1
+        ), -1)
+    """)
+    fun searchCategoryId(idValue: String): Long
+
     // * ------------------------
     // *    Update
     // * ------------------------
