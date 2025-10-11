@@ -30,6 +30,8 @@ interface UserInfoDao {
     @Query("SELECT * FROM user_info WHERE user_id = :entityId")
     fun selectUserInfo(entityId: Long): UserInfo
 
+    @Query("SELECT COALESCE((SELECT user_id FROM user_info ORDER BY user_id DESC LIMIT 1), -1)")
+    fun selectLastUserId(): Long
 
     // * ------------------------
     // *    Update

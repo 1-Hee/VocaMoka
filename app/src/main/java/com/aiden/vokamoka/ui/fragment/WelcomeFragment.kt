@@ -1,5 +1,8 @@
 package com.aiden.vokamoka.ui.fragment
 
+import android.content.ContentResolver
+import android.os.Build
+import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -11,6 +14,7 @@ import com.aiden.vokamoka.base.listener.ViewClickListener
 import com.aiden.vokamoka.base.ui.BaseFragment
 import com.aiden.vokamoka.databinding.FragmentWelcomeBinding
 import com.aiden.vokamoka.ui.viewmodel.WelcomeViewModel
+import com.aiden.vokamoka.util.AppUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,15 +45,33 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>(), ViewClickListene
                 welcomeViewModel.setIsNickNameValid(flag)
             }
         }
-
         mBinding.etUserNickname.addTextChangedListener(watcher)
 
+        welcomeViewModel.isUserRegistered.observe(this){ flag ->
+            if(flag){
+                nav().navigate(R.id.homeFragment)
+            }
+        }
     }
 
     override fun onViewClick(view: View) {
         when(view.id) {
             R.id.btn_voka_start -> {
-
+                val nickName: String = mBinding.etUserNickname.text.toString()
+                if(nickName.isBlank()){
+                    return
+                }
+                val resolver: ContentResolver = requireActivity().contentResolver
+                val cmdMsg = "getprop ro.product.model"
+                val mModelName: String = AppUtil.execute(cmdMsg)
+                val mOsVersion: String = Build.VERSION.RELEASE
+                val serialId: String = Settings.Secure.getString(resolver, Settings.Secure.ANDROID_ID)
+                val mIdentifier: String = buildString {
+                    append(mModelName).append("_")
+                    append(mOsVersion).append("_")
+                    append(serialId)
+                }
+                welcomeViewModel.addUserInfo(nickName, mIdentifier)
 
             }
             else -> {
