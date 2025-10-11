@@ -10,10 +10,6 @@
             type="com.aiden.vokamoka.ui.viewmodel.VocaViewModel"
             />
         <variable
-            name="vocaInfoList"
-            type="java.util.List&lt;com.aiden.vokamoka.data.vo.DisplayWord>"
-            />
-        <variable
             name="onPageListener"
             type="com.aiden.vokamoka.base.listener.OnPageInfoListener"
             />
@@ -49,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/gl_horizontal"
-            app:vocaInfoList="@{vocaInfoList}"
+            app:vocaInfoList="@{vm.vocaInfoList}"
             app:onPageListener="@{onPageListener}"
             app:vocaAdapter="@{vocaAdapter}"
             />

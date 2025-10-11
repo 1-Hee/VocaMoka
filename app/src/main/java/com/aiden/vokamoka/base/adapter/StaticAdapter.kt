@@ -121,9 +121,8 @@ class StaticAdapter {
             if(vocaInfoList.isEmpty()) return
             vocaAdapter?:return
 
-            val adapter: VocaAdapter = vocaAdapter
-            adapter.setDisplayWord(vocaInfoList)
-            viewPager2.adapter = adapter
+            vocaAdapter.setDisplayWord(vocaInfoList)
+            viewPager2.adapter = vocaAdapter
 
             // 콜백 리스너 등록
             var isFirstCallback = true
@@ -134,7 +133,7 @@ class StaticAdapter {
                 override fun onPageScrollStateChanged(state: Int) {
                     if (state == ViewPager2.SCROLL_STATE_IDLE) {
                         val pos = viewPager2.currentItem
-                        val last = adapter.itemCount - 1
+                        val last = vocaAdapter.itemCount - 1
                         when (pos) {
                             0 -> viewPager2.setCurrentItem(last - 1, false)
                             last -> viewPager2.setCurrentItem(1, false)
@@ -150,11 +149,11 @@ class StaticAdapter {
                     }
 
                     val realPosition = when (position) {
-                        0 -> adapter.itemCount - 3     // 0번째(왼쪽 끝) → 마지막 실제 인덱스
-                        adapter.itemCount - 1 -> 0     // 마지막(오른쪽 끝) → 첫 번째 실제 인덱스
+                        0 -> vocaAdapter.itemCount - 3     // 0번째(왼쪽 끝) → 마지막 실제 인덱스
+                        vocaAdapter.itemCount - 1 -> 0     // 마지막(오른쪽 끝) → 첫 번째 실제 인덱스
                         else -> position - 1           // 나머지는 1 빼기
                     }
-                    onPageListener?.onPageChanged(realPosition, adapter.itemCount - 2)
+                    onPageListener?.onPageChanged(realPosition, vocaAdapter.itemCount - 2)
                 }
             })
         }
