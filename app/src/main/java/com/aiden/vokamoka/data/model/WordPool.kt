@@ -34,7 +34,7 @@ data class WordPool(
     @ColumnInfo(name = "wp_inex")
     var wpInex:Long = 0, // 고유 ID
     @ColumnInfo(name = "fk_user_id")
-    var fkUserId: String? = null, // 외래키, 사용자 식별 정보(ID)
+    var fkUserId: Long? = null, // 외래키, 사용자 식별 정보(ID)
     @ColumnInfo(name = "origin_exp_id")
     var originExpId: Long, // 외래키, 단어 표현 식별자(ID) (= 암기할 단어)
     @ColumnInfo(name = "target_exp_id")

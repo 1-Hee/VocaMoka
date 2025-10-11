@@ -2,17 +2,16 @@ package com.aiden.vokamoka.base.adapter
 
 import android.util.Log
 import androidx.databinding.BindingAdapter
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.aiden.vokamoka.BR
 import com.aiden.vokamoka.R
 import com.aiden.vokamoka.base.bind.DataBindingConfig
-import com.aiden.vokamoka.base.listener.ViewClickListener
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.aiden.vokamoka.base.listener.ItemClickListener
 import com.aiden.vokamoka.base.listener.OnPageInfoListener
+import com.aiden.vokamoka.base.listener.ViewClickListener
 import com.aiden.vokamoka.data.dto.Permission
 import com.aiden.vokamoka.data.dto.SettingItem
 import com.aiden.vokamoka.data.dto.StatInfo
@@ -111,18 +110,18 @@ class StaticAdapter {
 
         // Voca Fragment Static Adapter
         @JvmStatic
-        @BindingAdapter(value = ["vocaInfoList", "onPageListener" ], requireAll = false)
+        @BindingAdapter(value = ["vocaInfoList", "onPageListener", "vocaAdapter" ], requireAll = false)
         fun setVocaFragments(
             viewPager2: ViewPager2,
             vocaInfoList:List<DisplayWord>,
-            onPageListener: OnPageInfoListener?
+            onPageListener: OnPageInfoListener?,
+            vocaAdapter: VocaAdapter?
         ) {
             Log.i(TAG, "Call setVocaFragments()... size ${vocaInfoList.size}")
             if(vocaInfoList.isEmpty()) return
-            val mActivity: FragmentActivity = viewPager2.context as? FragmentActivity?:return
-            val adapter = VocaAdapter(
-                mActivity
-            )
+            vocaAdapter?:return
+
+            val adapter: VocaAdapter = vocaAdapter
             adapter.setDisplayWord(vocaInfoList)
             viewPager2.adapter = adapter
 

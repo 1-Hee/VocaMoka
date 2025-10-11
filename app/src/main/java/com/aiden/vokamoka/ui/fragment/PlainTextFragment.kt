@@ -10,6 +10,9 @@ import com.aiden.vokamoka.base.ui.BaseFragment
 import com.aiden.vokamoka.databinding.FragmentPlainTextBinding
 import com.aiden.vokamoka.ui.viewmodel.PlainTextViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.BufferedReader
+import java.io.ByteArrayInputStream
+import java.io.InputStreamReader
 
 @AndroidEntryPoint
 class PlainTextFragment : BaseFragment<FragmentPlainTextBinding>(), ViewClickListener {
@@ -30,7 +33,13 @@ class PlainTextFragment : BaseFragment<FragmentPlainTextBinding>(), ViewClickLis
 
     override fun onViewClick(view: View) {
         when(view.id){
+            R.id.btn_save_word -> {
+                val editTextValue: String = mBinding.etPlainTextEditor.text.toString()
+                plainTextViewModel.addTextTokens(editTextValue)
+
+            }
             else -> {
+                // Apple / 사과 / 명사
 
             }
         }

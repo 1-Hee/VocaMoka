@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.aiden.vokamoka.BR
 import com.aiden.vokamoka.R
@@ -15,13 +16,17 @@ import com.aiden.vokamoka.base.ui.BaseFragment
 import com.aiden.vokamoka.data.vo.DisplayWord
 import com.aiden.vokamoka.data.vo.MenuInfo
 import com.aiden.vokamoka.databinding.FragmentVocaBinding
+import com.aiden.vokamoka.ui.adapter.VocaAdapter
 import com.aiden.vokamoka.ui.viewmodel.VocaViewModel
 import com.aiden.vokamoka.util.AppUtil.parcelable
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class VocaFragment : BaseFragment<FragmentVocaBinding>(),
     ViewClickListener, OnPageInfoListener {
 
     private val TAG = this.javaClass.simpleName
+    // private val vocaViewModel: VocaViewModel by viewModels()
     private lateinit var vocaViewModel: VocaViewModel
 
     private val AUTO_SCROLL_INTERVAL = 10 // n초 단위
@@ -31,6 +36,7 @@ class VocaFragment : BaseFragment<FragmentVocaBinding>(),
     override fun getDataBindingConfig(): DataBindingConfig {
         return DataBindingConfig(R.layout.fragment_voca,
             BR.vm, vocaViewModel)
+            .addBindingParam(BR.vocaInfoList, listOf<DisplayWord>())
             .addBindingParam(BR.onPageListener, this)
             .addBindingParam(BR.click, this)
     }
@@ -97,18 +103,34 @@ class VocaFragment : BaseFragment<FragmentVocaBinding>(),
             Log.d(TAG, "mMenuInfo : $mMenuInfo")
         }
 
-        val temp: MutableList<DisplayWord> = mutableListOf()
-        for(i in 0 until 10){
-            val tempWord = DisplayWord(
-                "Hello, World ${(i+1)}",
-                "안녕, 코틀린!",
-                "beginner"
-            )
-            temp.add(tempWord)
-        }
-        vocaViewModel.setVocaInfoList(temp)
-        vocaViewModel.setPageTimeValue((AUTO_SCROLL_INTERVAL))
+//        val temp: MutableList<DisplayWord> = mutableListOf()
+//        for(i in 0 until 10){
+//            val tempWord = DisplayWord(
+//                "Hello, World ${(i+1)}",
+//                "안녕, 코틀린!",
+//                "beginner"
+//            )
+//            temp.add(tempWord)
+//        }
+//        vocaViewModel.setVocaInfoList(temp)
+
+        mBinding.setVariable(BR.vocaAdapter, VocaAdapter(requireActivity()))
         mBinding.notifyChange()
+
+        vocaViewModel.loadVocaList()
+        vocaViewModel.setPageTimeValue((AUTO_SCROLL_INTERVAL))
+        // mBinding.notifyChange()
+
+        vocaViewModel.isVocaUpdated.observe(this) { it ->
+            if(it) {
+                Log.d(TAG, "VOCA LIST ${vocaViewModel.vocaInfoList}")
+                mBinding.setVariable(BR.vocaAdapter, VocaAdapter(requireActivity()))
+                mBinding.setVariable(BR.vocaInfoList, vocaViewModel.vocaInfoList)
+                mBinding.notifyChange()
+                vocaViewModel.setIsVocaUpdated(false)
+            }
+        }
+
     }
 
     override fun onPageChanged(current: Int, total: Int) {
