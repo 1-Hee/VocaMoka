@@ -30,6 +30,10 @@ class WordPoolRepository @Inject constructor(
         wordPoolDao.deleteWordPool(entity)
     }
 
+    suspend fun deleteWordPool(wpIndex: Long){
+        wordPoolDao.deleteWordPool(wpIndex)
+    }
+
     override suspend fun removeAll() {
         wordPoolDao.deleteAll()
     }

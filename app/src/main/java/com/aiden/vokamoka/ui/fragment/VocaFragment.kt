@@ -1,11 +1,10 @@
 package com.aiden.vokamoka.ui.fragment
 
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.aiden.vokamoka.BR
 import com.aiden.vokamoka.R
@@ -20,24 +19,30 @@ import com.aiden.vokamoka.ui.adapter.VocaAdapter
 import com.aiden.vokamoka.ui.viewmodel.VocaViewModel
 import com.aiden.vokamoka.util.AppUtil.parcelable
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class VocaFragment : BaseFragment<FragmentVocaBinding>(),
-    ViewClickListener, OnPageInfoListener {
+    ViewClickListener, OnPageInfoListener, WordFragment.OnWordListener {
 
     private val TAG = this.javaClass.simpleName
-    // private val vocaViewModel: VocaViewModel by viewModels()
     private lateinit var vocaViewModel: VocaViewModel
 
     private val AUTO_SCROLL_INTERVAL = 10 // n초 단위
     private var countdown = AUTO_SCROLL_INTERVAL
     private val isStartTimer: Boolean = true
 
+    private lateinit var vocaAdapter: VocaAdapter
+
     override fun getDataBindingConfig(): DataBindingConfig {
         return DataBindingConfig(R.layout.fragment_voca,
             BR.vm, vocaViewModel)
             .addBindingParam(BR.onPageListener, this)
             .addBindingParam(BR.click, this)
+            .addBindingParam(BR.onWordListener, this)
     }
 
     override fun initViewModel() {
@@ -102,7 +107,8 @@ class VocaFragment : BaseFragment<FragmentVocaBinding>(),
             Log.d(TAG, "mMenuInfo : $mMenuInfo")
         }
 
-        mBinding.setVariable(BR.vocaAdapter, VocaAdapter(requireActivity()))
+        vocaAdapter = VocaAdapter(requireActivity())
+        mBinding.setVariable(BR.vocaAdapter, vocaAdapter)
         mBinding.notifyChange()
 
         // 저장된 단어 준비
@@ -111,7 +117,8 @@ class VocaFragment : BaseFragment<FragmentVocaBinding>(),
         vocaViewModel.isVocaUpdated.observe(this) { it ->
             if(it) {
                 Log.d(TAG, "VOCA LIST ${vocaViewModel.vocaInfoList}")
-                mBinding.setVariable(BR.vocaAdapter, VocaAdapter(requireActivity()))
+                vocaAdapter = VocaAdapter(requireActivity())
+                mBinding.setVariable(BR.vocaAdapter, vocaAdapter)
                 mBinding.notifyChange()
                 vocaViewModel.setIsVocaUpdated(false)
             }
@@ -131,6 +138,15 @@ class VocaFragment : BaseFragment<FragmentVocaBinding>(),
     override fun onViewClick(view: View) {
         when(view.id) {
             R.id.btn_shuffle -> {
+                // TODO 실제 셔플 기능으로 교체하기
+                lifecycleScope.launch(Dispatchers.IO) {
+                    vocaViewModel.deleteAllVoca()
+                    delay(1000)
+                    withContext(Dispatchers.Main){
+                        vocaViewModel.setIsVocaUpdated(false)
+                    }
+                    vocaViewModel.loadVocaList()
+                }
 
             }
             R.id.btn_goto_first -> {
@@ -150,5 +166,28 @@ class VocaFragment : BaseFragment<FragmentVocaBinding>(),
         super.onPause()
         countdownHandler.removeCallbacks(countdownRunnable)
         stopAutoScroll()
+    }
+
+    override fun onWordCheck(displayWord: DisplayWord) {
+        Log.d(TAG, "WORD CHECKED!!! $displayWord")
+
+        // 저장된 단어 준비
+        lifecycleScope.launch(Dispatchers.IO) {
+            delay(100)
+            withContext(Dispatchers.Main){
+                vocaViewModel.setIsVocaUpdated(false)
+            }
+            vocaViewModel.loadVocaList()
+        }
+
+//        val vocaList: MutableList<DisplayWord> = vocaAdapter.displayWordList.toMutableList()
+//         vocaList.removeAt(displayWord.index)
+//         vocaViewModel.setVocaInfoList(vocaList)
+//        // vocaAdapter = VocaAdapter(requireActivity())
+//        // vocaAdapter.setDisplayWord(vocaList)
+//        // mBinding.setVariable(BR.vm, vocaViewModel)
+//        // mBinding.setVariable(BR.vocaAdapter, vocaAdapter)
+//        mBinding.notifyChange()
+
     }
 }

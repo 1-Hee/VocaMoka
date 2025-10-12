@@ -22,6 +22,7 @@ import com.aiden.vokamoka.databinding.ItemPermissionBinding
 import com.aiden.vokamoka.databinding.ItemSettingBinding
 import com.aiden.vokamoka.databinding.ItemStatMenuBinding
 import com.aiden.vokamoka.ui.adapter.VocaAdapter
+import com.aiden.vokamoka.ui.fragment.WordFragment
 import com.google.android.flexbox.AlignItems
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -110,49 +111,55 @@ class StaticAdapter {
 
         // Voca Fragment Static Adapter
         @JvmStatic
-        @BindingAdapter(value = ["vocaInfoList", "onPageListener", "vocaAdapter" ], requireAll = false)
+        @BindingAdapter(value = [
+            "vocaInfoList", "onPageListener", "vocaAdapter", "onWordListener"
+        ], requireAll = false)
         fun setVocaFragments(
             viewPager2: ViewPager2,
             vocaInfoList:List<DisplayWord>,
             onPageListener: OnPageInfoListener?,
-            vocaAdapter: VocaAdapter?
+            vocaAdapter: VocaAdapter?,
+            onWordListener: WordFragment.OnWordListener?
         ) {
             Log.i(TAG, "Call setVocaFragments()... size ${vocaInfoList.size}")
-            if(vocaInfoList.isEmpty()) return
+            // if(vocaInfoList.isEmpty()) return
             vocaAdapter?:return
 
+            vocaAdapter.setOnWordListener(onWordListener)
             vocaAdapter.setDisplayWord(vocaInfoList)
             viewPager2.adapter = vocaAdapter
 
             // 콜백 리스너 등록
             var isFirstCallback = true
             // 첫 번째 실제 아이템으로 이동
-            viewPager2.setCurrentItem(1, false)
+            // viewPager2.setCurrentItem(1, false)
+            viewPager2.setCurrentItem(0, false)
             onPageListener?.onPageChanged(0, vocaInfoList.size)
             viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrollStateChanged(state: Int) {
                     if (state == ViewPager2.SCROLL_STATE_IDLE) {
-                        val pos = viewPager2.currentItem
-                        val last = vocaAdapter.itemCount - 1
-                        when (pos) {
-                            0 -> viewPager2.setCurrentItem(last - 1, false)
-                            last -> viewPager2.setCurrentItem(1, false)
-                        }
+//                        val pos = viewPager2.currentItem
+//                        val last = vocaAdapter.itemCount - 1
+//                        when (pos) {
+//                            0 -> viewPager2.setCurrentItem(last - 1, false)
+//                            last -> viewPager2.setCurrentItem(1, false)
+//                        }
                     }
                 }
 
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    if (isFirstCallback) {
-                        isFirstCallback = false
-                        return
-                    }
+//                    if (isFirstCallback) {
+//                        isFirstCallback = false
+//                        return
+//                    }
+                    val realPosition = position
 
-                    val realPosition = when (position) {
-                        0 -> vocaAdapter.itemCount - 3     // 0번째(왼쪽 끝) → 마지막 실제 인덱스
-                        vocaAdapter.itemCount - 1 -> 0     // 마지막(오른쪽 끝) → 첫 번째 실제 인덱스
-                        else -> position - 1           // 나머지는 1 빼기
-                    }
+//                    val realPosition = when (position) {
+//                        0 -> vocaAdapter.itemCount - 3     // 0번째(왼쪽 끝) → 마지막 실제 인덱스
+//                        vocaAdapter.itemCount - 1 -> 0     // 마지막(오른쪽 끝) → 첫 번째 실제 인덱스
+//                        else -> position - 1           // 나머지는 1 빼기
+//                    }
                     onPageListener?.onPageChanged(realPosition, vocaAdapter.itemCount - 2)
                 }
             })

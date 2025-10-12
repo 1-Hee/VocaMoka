@@ -29,9 +29,9 @@ class WordFragment(
 ) : BaseFragment<FragmentWordBinding>(),
     ViewClickListener, ItemClickListener<DisplayWord> {
 
+    private val TAG = this.javaClass.simpleName
     private var isFrontVisible = true // 카드 애니메이션용
     private val index by lazy { arguments?.getInt(ARG_INDEX) ?: -1 } // 프래그먼트의 순서
-    private val TAG = this.javaClass.simpleName
     private val wordViewModel: WordViewModel by viewModels()
 
     companion object {
@@ -45,9 +45,20 @@ class WordFragment(
         }
     }
 
+    private var wordListener: OnWordListener? = null
+
+    interface OnWordListener {
+        fun onWordCheck(displayWord: DisplayWord)
+    }
+
+    fun setOnWordListener(listener: OnWordListener?){
+        this@WordFragment.wordListener = listener
+    }
+
     override fun getDataBindingConfig(): DataBindingConfig {
         return DataBindingConfig(R.layout.fragment_word,
             BR.vm, wordViewModel)
+            . addBindingParam(BR.click, this)
     }
 
     override fun initViewModel() {
@@ -56,27 +67,36 @@ class WordFragment(
         wordViewModel.setVocaWord(displayWord.word)
         wordViewModel.setVocaMeans(displayWord.mean)
         wordViewModel.setTagName(displayWord.tag)
+        wordViewModel.setWpIndex(displayWord.wpInex)
     }
 
     override fun initView() {
-        mBinding.clVocaWord.setOnClickListener { v ->
-            displayWord?:return@setOnClickListener
-            onItemClick(v, index, displayWord)
-            onViewClick(v)
-        }
+//        mBinding.clVocaWord.setOnClickListener { v ->
+//            displayWord?:return@setOnClickListener
+//            onItemClick(v, index, displayWord)
+//            onViewClick(v)
+//        }
     }
 
     override fun onViewClick(view: View) {
         when(view.id){
-            R.id.cl_voca_word -> {
+            R.id.cl_voca_word,
+            R.id.mcv_word_front, R.id.mcv_word_back -> {
                 flipCard3D(
                     if (isFrontVisible) mBinding.mcvWordFront else mBinding.mcvWordBack,
                     if (isFrontVisible) mBinding.mcvWordBack else mBinding.mcvWordFront
                 )
                 isFrontVisible = !isFrontVisible
+                if(displayWord != null){
+                    onItemClick(view, index, displayWord)
+                }
             }
             R.id.btn_check -> {
-                Toast.makeText(requireContext(), "CHECK!!!", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(requireContext(), "CHECK!!!", Toast.LENGTH_SHORT).show()
+                if(displayWord != null){
+                    wordListener?.onWordCheck(displayWord)
+                    wordViewModel.deleteItem()
+                }
             }
         }
     }

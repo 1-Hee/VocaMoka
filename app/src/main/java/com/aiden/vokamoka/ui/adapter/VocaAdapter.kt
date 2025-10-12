@@ -6,12 +6,21 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.aiden.vokamoka.data.vo.DisplayWord
 import com.aiden.vokamoka.ui.fragment.WordFragment
+import com.aiden.vokamoka.ui.fragment.WordFragment.OnWordListener
 
 class VocaAdapter(
     fragmentActivity: FragmentActivity
 ) : FragmentStateAdapter(fragmentActivity) {
 
+    private var onWordListener : OnWordListener? = null
+
+    fun setOnWordListener(listener: OnWordListener?){
+        this.onWordListener = listener
+    }
+
     private val _displayWordList: MutableList<DisplayWord> = mutableListOf()
+
+    val displayWordList:List<DisplayWord> get() = _displayWordList
 
     fun addDisplayWord(displayWord: DisplayWord) {
         this._displayWordList.add(displayWord)
@@ -30,12 +39,17 @@ class VocaAdapter(
         if(_displayWordList.isEmpty()) return Fragment()
 
         val itemSize:Int = this._displayWordList.size
-        val realPosition = when (position) {
-            0 -> itemSize - 1 // 마지막 아이템 복제
-            itemSize + 1 -> 0 // 첫 아이템 복제
-            else -> position - 1
-        }
+//        val realPosition = when (position) {
+//            0 -> itemSize - 1 // 마지막 아이템 복제
+//            itemSize + 1 -> 0 // 첫 아이템 복제
+//            else -> position - 1
+//        }
+        val realPosition = position
+
         // 실제 데이터에 따라 Fragment를 생성
-        return WordFragment.newInstance(realPosition, _displayWordList[realPosition])
+        val instance =  WordFragment
+            .newInstance(realPosition, _displayWordList[realPosition])
+        instance.setOnWordListener(onWordListener)
+        return instance
     }
 }

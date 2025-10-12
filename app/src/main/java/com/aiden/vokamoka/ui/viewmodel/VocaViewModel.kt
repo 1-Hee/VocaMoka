@@ -80,7 +80,7 @@ class VocaViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val mDisplayWords: MutableList<DisplayWord> = mutableListOf()
             val mPoolList:List<WordPool> = poolRepo.readEntityList()
-            mPoolList.forEach { pool ->
+            mPoolList.forEachIndexed { i, pool ->
                 Log.d(TAG, "POOL $pool")
                 val expFrom: Expression = expRepo.readEntity(pool.originExpId)
                 val expTo: Expression = expRepo.readEntity(pool.targetExpId)
@@ -88,13 +88,29 @@ class VocaViewModel @Inject constructor(
                 val mWord = DisplayWord(
                     expFrom.wordText,
                     expTo.wordText,
-                    "None"
+                    "None",
+                    pool.wpInex,
+                    i
                 )
                 mDisplayWords.add(mWord)
             }
 
             withContext(Dispatchers.Main) {
                 setVocaInfoList(mDisplayWords)
+                setIsVocaUpdated(true)
+            }
+        }
+    }
+
+    // temp..!
+    fun deleteAllVoca() {
+        viewModelScope.launch(Dispatchers.IO) {
+
+            poolRepo.removeAll()
+            expRepo.removeAll()
+
+            withContext(Dispatchers.Main) {
+                setVocaInfoList(emptyList())
                 setIsVocaUpdated(true)
             }
         }

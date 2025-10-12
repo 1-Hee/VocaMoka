@@ -45,4 +45,6 @@ data class WordPool(
     var dateCreated: Date = Date(), // 단어 생성 날짜
     @ColumnInfo(name = "date_edited")
     var dateEdited: Date = Date(), // 단어 수정 날짜
+    @ColumnInfo(name = "status")
+    var status: Int = 0, // 단어 학습 상태
 )

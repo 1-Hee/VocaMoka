@@ -18,6 +18,10 @@
             type="com.aiden.vokamoka.ui.adapter.VocaAdapter"
             />
         <variable
+            name="onWordListener"
+            type="com.aiden.vokamoka.ui.fragment.WordFragment.OnWordListener"
+            />
+        <variable
             name="click"
             type="com.aiden.vokamoka.base.listener.ViewClickListener"
             />
@@ -48,6 +52,7 @@
             app:vocaInfoList="@{vm.vocaInfoList}"
             app:onPageListener="@{onPageListener}"
             app:vocaAdapter="@{vocaAdapter}"
+            app:onWordListener="@{onWordListener}"
             />
 
         <com.google.android.material.divider.MaterialDivider

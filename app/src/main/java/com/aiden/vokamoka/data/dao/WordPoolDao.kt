@@ -38,6 +38,10 @@ interface WordPoolDao {
     // * ------------------------
     // *    Delete
     // * ------------------------
+
+    @Query("DELETE FROM word_pool WHERE wp_inex = :wpIndex")
+    fun deleteWordPool(wpIndex: Long)
+
     @Delete
     fun deleteWordPool(entity: WordPool)
 

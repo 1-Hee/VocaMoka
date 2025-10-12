@@ -30,6 +30,7 @@
     <string name="msg_greet1">%1$s 님\n오늘도 단어 암기를 시작해 볼까요?</string>
     <string name="msg_greet2">오늘 하루 %1$d 명의 Moka들이 단어 암기에 함께했어요!</string>
     <string name="msg_greet3">지금까지 %1$d 회 학습 하셨네요!</string>
+    <string name="msg_complete_word">단어 등록 완료.</string>
 
     <!-- 사용자 권한 -->
     <array name="arr_user_permission">
